@@ -1,0 +1,40 @@
+
+<div data-role="header" data-position="fixed" data-theme="b"
+    style="background:none repeat-x scroll 0 0 #e6e6fa;
+	width:800px;
+	margin-left : auto ; margin-right : auto;"
+>
+  <div data-role="navbar">
+    <ul>
+      <li><%= link_to "検索",categories_path %></li>
+      <li><%= link_to "メッセージ",messages_path %></li>
+      <li><%= link_to "プロフィール",profile_user_path(@current_user.id) %></li>
+    </ul>
+  </div>
+</div>
+
+<div data-role="content"
+
+style="background:none repeat-x scroll 0 0 #e6e6fa;
+	width:770px;
+	height:800px;
+	margin-left : auto ; margin-right : auto;
+"
+>
+
+  <h1>プロフィール</h1>
+  <p>写真: <%= image_tag(@current_user.image,:size => '65x65')  %>
+
+  <p>名前: <%= @current_user.name  %></p>
+  <p>生年月日：1981年２月２日</p>
+  <p>性別：男性</p>
+  <p>サービス利用状態：ユーザー</p>
+
+  
+  
+  
+</div>
+
+
+
+
