@@ -1,0 +1,206 @@
+
+<div data-role="header" data-position="fixed" data-theme="b"
+   style="
+	width:800px;
+    margin-left : auto ; margin-right : auto;
+    background:#e6e6fa;"
+>
+
+  <div data-role="navbar">
+    <ul>
+      <li><%= link_to "検索",categories_path %></li>
+      <li><%= link_to "メッセージ",messages_path %></li>
+      <li><%= link_to "プロフィール",profile_user_path(@current_user.id) %></li>
+    </ul>
+  </div>
+  
+   <!--パートナーの情報-->
+    
+  <div class="partner_info">
+    
+    <% if @role== "user" %>
+      <span style="color: black">エキスパート(</span>
+        <span style="color: red"><%= @partner.name  %></span>
+      <span style="color: black">)さんとのセッション</span>
+    <% elsif @role=="expert" %>
+      <span style="color: black">質問者(</span>
+        <span style="color: red"><%= @partner.name  %></span>
+        <span style="color: black">)さんとのセッション</span>
+    <% end %>
+        <%= image_tag(@partner.image,
+            :size => '65x65',
+            :class=>'user_image') %>
+            
+         <p>
+        <% @categorynames = @partner.categories.map{|m| m.name} %>
+
+        <% @i=1 %>
+        <% @categorynames.each do |name| %>
+
+        <% if( @i<=5) %>
+        <span class="expert_tag">
+        <%= @i %>
+        <%= name %>
+        </span>
+        <% end %>
+        <% @i+=1 %>
+   <% end %>
+   
+
+    </div>
+    
+    
+    <!--価格・ステータス-->
+    
+    <div class="session_status">
+  <span class="payment">2000円／5メッセージ</span>
+  <p>
+
+
+    <!--　チャット中、終了、パスかどうかを表示する。-->
+        <% if @session && (@session.status == 0 || @session.status == 1) %>
+        <span class="chat">チャット中</span>
+        <% elsif @session && @session.status == 2 %>
+        <span class="pass">パス</span>
+        <% elsif @session && @session.status == 3 %>
+        <span class="pass">終了</span>
+        <% end %>
+
+
+    </div>
+
+
+</div>
+
+
+<div data-role="content"
+style="background:none repeat-x scroll 0 0 #e6e6fa;
+	width:770px;
+	height:550px;
+	margin-left : auto ; margin-right : auto;"
+
+>
+
+  <!-- セッションをユーザーとして参加した場合。 -->
+  <% if @role == "user" %>
+    
+      <% if @messages.present? %>
+      <ul id="parent" data-role="listview" data-theme="c">
+        <% @messages.each do |message| %> 
+          <li class="message" style="background: #e6e6fa;">
+          
+            <!-- 送信者の写真 -->            
+              
+              <% if message.post_id == @current_user.id %>
+              <%= image_tag(@current_user.image,:size=>'60x60',:class=>'user_image') %>
+              <% else %>
+                <%= image_tag(@partner.image,:size=>'60x60',:class=>'user_image') %>
+              <% end %>
+              
+              <%= message.content %>
+            
+          </li>
+        <% end %>
+      </ul>
+    
+    <% else%>
+      <p>一度もセッションが行われてません<p>
+    <% end %>
+ 
+  <!-- セッションをエキスパートとして参加した場合 -->
+  <% elsif @role == "expert" %>
+    
+    <% if @messages.present? %>
+      
+      <ul data-role="listview" data-theme="c"> 
+        <% @messages.each do |message| %> 
+          <li>
+            
+              
+              <% if message.post_id == @current_user.id %>
+                <%= image_tag(@current_user.image,:size=>'60x60',:class=>'user_image') %>
+              <% else %>
+                <%= image_tag(@partner.image,:size=>'60x60',:class=>'user_image') %>
+              <% end %>
+              
+              
+             <%= message.content %>
+            
+          </li>
+        <% end %>
+      </ul>
+    
+    <% else %>
+      <p>一度もセッションが行われてません<p>
+    <% end %>
+
+   
+  <% end %>
+
+
+
+
+</div>
+
+
+
+
+<!-- ここからフッターの部分。 -->
+
+<!-- ここはチャット中の状態しか開けない -->
+<% if !@session || (@session && @session.status == 0) || (@session && @session.status == 1) %>
+  
+  <div data-role="footer" data-position="fixed" data-theme="b"
+  style="
+	width:800px;
+    margin-left : auto ; margin-right : auto;">
+  
+    <!-- ここにパスボタンをつける。 -->
+    <%= form_for @post,:url => {:action => "pass"} do |form| %>
+      <input type="hidden" name="role" value="<%= @role %>">
+      <%= form.submit "パス" %>
+    <% end %>
+   
+    <!-- ここにエンドボタンをつける。 -->
+    <%= form_for @post,:url => {:action => "end"} do |form| %>
+      <input type="hidden" name="role" value="<%= @role %>">
+      <%= form.submit "エンド" %>
+    <% end %>
+
+    <!-- ここでコメントを書くフォームをつくる。-->
+    <%= form_for @post,:url => {:action => "up"} do |form| %>  
+      <%= form.text_area :content %>
+      <!-- タイプを隠して送信する。　-->
+      <input type="hidden" name="role" value="<%= @role %>">
+      <%= form.submit "送信" %>
+    <% end %>  
+    
+  </div>
+
+<% end %>
+
+<!-- ここはパスとエンドボタンした表示されない。 -->
+<% if @session && ( @session.status == 2 || @session.status == 3 ) %>
+
+  <div data-role="footer" data-position="fixed" data-theme="b"
+  
+  style="
+	width:800px;
+    margin-left : auto ; margin-right : auto;">
+    <h1>新しいセッションを始める</h1>
+        
+    
+    <input type="button" onclick="location.href='start?role=<%= @role %>'"value="スタート">
+  
+  </div>
+
+<% end %>
+
+
+
+
+
+
+
+
+
