@@ -1,0 +1,26 @@
+
+<div data-role="content">
+
+  <h1>削除された項目</h1>
+
+  <p><%= link_to "戻る",admin_categories_path %></p>
+
+  <ul date-role="listview">  
+    <% @deleted_categories.each do |delete_category| %>
+
+      <li>
+        <a href="/admin/categories/<%= delete_category.id %>/deleted_category">
+          <%= Category.find(delete_category.parent_id).name %>:<%= delete_category.name %>
+        </a>
+      </li>
+    <% end %>
+  </ul>
+
+
+</div>
+
+
+
+
+
+

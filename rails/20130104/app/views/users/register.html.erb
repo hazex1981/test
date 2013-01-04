@@ -1,0 +1,28 @@
+
+<div data-role="content">
+  <h1>ユーザー登録画面</h1>
+
+    <%= form_for @user,:url =>{:action => 'registered'} do |f| %>
+        
+        <p>プロフィール写真:  <image src="<%= @user.image %>"></p>
+        <p>名前: <%= @user.name %></p> 
+        
+        <p>
+          <%= f.label "メールアドレス" %>
+          <%= f.text_field :email %> 
+        </p>
+        <p>
+          <%= f.submit "登録" %>
+        </p>
+
+    <% end %>
+
+</div>
+
+
+
+
+
+
+
+

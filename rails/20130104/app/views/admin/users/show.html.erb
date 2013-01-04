@@ -1,0 +1,65 @@
+
+<div data-role="content">
+
+  <h1>ユーザー詳細</h1>
+
+  <p><%= link_to "戻る",admin_users_path %></p>
+
+  <table class="table">
+        
+    <tr>
+            
+      <th>プロフィール画像</th>
+      <th>名前</th>
+      <th>メールアドレス</th>
+      <th>性別</th>
+      <th>誕生日</th>
+      <th>プロフィール</th>
+      <th>エキスパート権限</th>
+      <th>エキスパート情報</th>
+
+    </tr>
+
+    <tr>
+      <td><%= image_tag(@user.image,:size => '65x65') %></td>
+      <td><%= @user.name %></td>
+      <td><%= @user.email %></td>
+      <td>
+        <% if  @user.sex == "male" %>
+          男性
+        <% elsif @user.sex == "female" %>
+          女性
+        <% end %>
+      </td>
+      <td><%= @user.birthday %></td>
+      <td><%= @user.bio %></td>
+      
+      <% if @user.expert %>
+        <td> ◯  <%= link_to "権限変更",authchange_admin_user_path(@user.id),method: "post",confirm: "権限を変更しますか？" %></td>
+        <td><%= link_to "エキスパート詳細ページへ",admin_expert_path(@user.id) %></td>
+      <% else %>
+        <td> ×  <%= link_to "権限変更",authchange_admin_user_path(@user.id),method: "post",confirm: "権限を変更しますか？" %></td>
+        <td>なし</td>
+      <% end %>
+    </tr>
+        
+        
+  </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+

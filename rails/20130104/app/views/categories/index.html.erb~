@@ -1,0 +1,53 @@
+
+<div data-role="header" data-position="fixed" data-theme="b">
+  <div data-role="navbar">
+    <ul>
+      <li><%= link_to "検索",categories_path %></li>
+      <li><%= link_to "メッセージ",messages_path %></li>
+      <li><%= link_to "プロフィール",profile_user_path(@current_user.id) %></li>
+    </ul>
+  </div>
+</div>
+
+
+<div date-role="content">
+
+  <h1>エキスパートを探す</h1>
+
+  <%= form_tag(:tag_experts,:method => "get") do %>
+    <p><%= submit_tag "検索する" %></p>
+
+    <ul>
+      <% @parents.each do |parent| %>
+        <!-- 親カテゴリーを表示 -->
+        <li>
+          <span style="color: blue"><strong><%= parent.name =%></strong></span>
+        </li>
+        
+        <li>
+          <!-- 子カテゴリーを表示　-->
+          <% parent.children.each do |child| %>
+            
+            <label>
+              <%= check_box_tag 'category[]',child.id %>
+              <%= child.name %>
+            </label>
+
+          <% end %>
+        </li>
+      <% end %> 
+    </ul>
+  <% end %>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+

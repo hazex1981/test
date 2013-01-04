@@ -1,0 +1,41 @@
+// Place all the styles related to the categories controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.expert_tag_div{
+
+     display: inline-block;
+	_display: inline;
+
+}
+
+.expert_tag_div input{
+
+display: none;
+}
+
+.expert-tag{
+
+
+    cursor: pointer;
+    padding: -0px 0px;
+    float: left;
+    border: solid 1px #aaa;
+    margin-left: 1px;
+    background: #eee;
+    position: relative;
+	display: inline-block;
+	_display: inline;
+
+
+}
+
+.exert_search{
+background: #e6e6fa;
+
+}
+
+.category{
+ background: #e6e6fa;
+
+}

@@ -1,0 +1,28 @@
+# config/application.yml
+defaults: &defaults
+  APPID: "385343304884371"
+  APPSECRET: "9b1405baa61b02c6c351e8cc0c243dc5"
+  free_status: 0
+  charge_status: 1
+  pass_status: 2
+  end_status: 3
+   
+
+development:
+  <<: *defaults
+
+
+
+test:
+  <<: *defaults
+
+
+
+
+production:
+  <<: *defaults
+
+  APPID: "385343304884371"
+  APPSECRET: "9b1405baa61b02c6c351e8cc0c243dc5"
+
+

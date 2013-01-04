@@ -1,0 +1,95 @@
+
+<div data-role="content">
+
+  <h1>エキスパート情報編集</h1>
+  
+  <p><%= link_to "戻る",admin_expert_path(@expert.id) %></p>
+
+
+  <%= form_for [:admin,@expert],url: {:controller => "experts",:action => "update"},
+  :html => {"data-ajax" => "false" } do |form| %>
+
+    <%= form.label :name ,"名前" %>
+    <%= form.text_field :name %>
+
+    <%= form.label :uid ,"FacebookのユニークID" %>
+    <%= form.text_field :uid %>
+
+    <%= form.label :email ,"メールアドレス" %>
+    <%= form.text_field :email %>
+
+
+    <!-- 性別のチェックボックス -->
+    <p>性別</p>
+    <% if @expert.sex == "male" %>
+      
+      <label>男性 <%= form.radio_button 'sex', 'male', { :checked => "checked"} %></label>
+      <label>女性 <%= form.radio_button 'sex', 'fenale', {} %></label>
+    
+    <% elsif @expert.sex == "female" %>
+      
+      <label>男性 <%= form.radio_button 'sex', 'male', {} %></label>
+      <label>女性 <%= form.radio_button 'sex', 'fenale', {:checked => "checked"} %></label>
+
+    <% end %>
+
+    <%= form.label :bio,"プロフィール" %>
+    <%= form.text_area :bio %>
+
+    <%= form.label :birthday,"誕生日" %>
+    <%= form.text_field :birthday %>
+
+
+    <!-- ここから子のExpertdetailモデルのフォームをつくる。 -->
+    <%= fields_for @expert.expertdetail do |f| %>
+
+      <%= f.label :detail,"詳細プロフィール（職務経験など）" %>
+      <%= f.text_area :detail %>
+      
+      <%= f.label :price,"価格" %>
+      <%= f.text_area :price %>
+
+      <%= f.label :time,"時間帯" %>
+      <%= f.text_area :time %>
+
+
+    <% end %>
+
+    <p>カテゴリーの登録</p>
+    
+      <% @parents.each do |parent| %>
+        <ul> 
+          <li>
+            <p><span style="color: red"><strong><%= parent.name %></strong></span></p>
+         
+            <!-- ここにチェックボックスをつける　-->
+            <% parent.children.each do |child| %>
+
+              <label>
+                <%= check_box_tag("user[category_ids][]", child.id, @expert.category_ids.include?(child.id)) %>
+                <%= child.name %>
+              </label>
+
+            <% end %>
+          
+          </li>
+
+        </ul>
+      <% end %>
+
+      <!--　チェックをすべて外したときに、パラメーターをおくれるようにするためにする処理-->
+      <input type="hidden" name="user[category_ids][]">
+    
+    <%= form.submit "編集" %>
+  <% end %>
+
+</div>
+
+
+
+
+
+
+
+
+

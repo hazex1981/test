@@ -1,0 +1,90 @@
+
+<div data-role="content">
+
+  <h1>エキスパート詳細</h1>
+
+  <p><%= link_to "戻る",admin_experts_path %></p>
+
+  <!--エキスパートの基礎データ -->
+  <table class="table">
+        
+    <tr>
+            
+      <th>プロフィール画像</th>
+      <th>名前</th>
+      <th>メールアドレス</th>
+      <th>性別</th>
+      <th>誕生日</th>
+      <th>プロフィール</th>
+      <th>詳細プロフィール</th>
+      <th>価格</th>
+      <th>時間帯</th>
+      
+
+    </tr>
+
+    <tr>
+      <td><%= image_tag(@expert.image,:size => '65x65') %></td>
+      <td><%= @expert.name %></td>
+      <td><%= @expert.email %></td>
+      <td>
+        <% if  @expert.sex == "male" %>
+          男性
+        <% elsif @expert.sex == "female" %>
+          女性
+        <% end %>
+      </td>
+      <td><%= @expert.birthday %></td>
+      <td><%= @expert.bio %></td>
+      <% if @expert.expertdetail %>
+        <td><%= @expert.expertdetail.detail %></td>
+        <td><%= @expert.expertdetail.price %></td>
+        <td><%= @expert.expertdetail.time %></td>
+      <% else %>
+        <td></td>
+        <td></td>
+        <td></td>
+      <% end %>
+    </tr>
+        
+        
+  </table>
+
+  <h3>専門カテゴリー 全<%= @categories.size %>件</h3>
+  <ol>
+    <% @categories.each do |category| %>
+
+      <li><%= link_to Category.find(category.parent_id).name + ":" + category.name,admin_category_path(category.id) %></li>
+
+    <% end %>
+  </ol>
+
+  <p><a href="/admin/experts/<%= @expert.id %>/edit" data-role="button" data-inline="true">エキスパート情報の編集</a></p>
+  <p><%= link_to "エキスパート権限の削除",authchange_admin_expert_path(@expert.id),method: "post",:confirm => "権限を削除しますか？" %>
+
+  <!--<p><%= link_to "エキスパート情報の削除",admin_expert_path(@expert.id),method: "delete",:confirm => "削除しますか？" %>-->   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+

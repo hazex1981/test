@@ -1,0 +1,51 @@
+
+<div data-role="content">
+
+  <h1><%= Category.find(@category.parent_id).name %>:<%= @category.name %></h1>
+  <%= link_to "戻る",admin_categories_path %>
+
+  <p>
+    <%= link_to "編集", edit_admin_category_path(@category.id) %>
+    <%= link_to "削除",admin_category_path(@category.id),:method => :delete %>
+  </p>
+
+  
+  <h2>このカテゴリーをもつエキスパート一覧</h2>
+  
+  <p>全<%= @experts.size %>件</p>
+
+  <!-- 一人もいない場合 -->
+  <% if @experts.empty? %>
+
+    <p>登録者なし</p>
+
+  <!-- エキスパートがいる場合 -->
+  <% else %>
+
+    <ol data-role="listview">
+      <% @experts.each do |expert| %> 
+        
+        <li>
+          <a href="/admin/experts/<%= expert.id %>">
+            <%= image_tag(expert.image,:size => '65x65') %>
+            (名前) <%= expert.name %>さん
+            <br >
+            (メールアドレス) <%= expert.email %>
+          </a>
+        </li>
+
+      <% end %>
+    </ol>
+
+  <% end %>
+
+
+
+
+</div>
+
+
+
+
+
+

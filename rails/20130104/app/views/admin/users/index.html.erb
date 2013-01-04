@@ -1,0 +1,69 @@
+
+<div data-role="content">
+
+  <p><%= link_to "管理画面TOP",admin_root_path %></p>
+
+  <h1>ユーザー一覧</h1>
+
+  <p>全<%= @users.size %>人</p>
+
+    <!--ユーザーがいない場合。 -->
+    <% if @users.empty? %>
+    
+      <p>ユーザーが一人も登録されていません</p>
+
+
+
+
+    <!-- ユーザーがいた場合 -->
+    <% else %>
+    
+      <table class="table">
+        
+          <tr>
+            
+            <th>プロフィール画像</th>
+            <th>名前</th>
+            <th>メールアドレス</th>
+            <th></th>
+
+          </tr>
+
+          <% @users.each do |user| %>
+            <tr>
+                <td><%= image_tag(user.image,:size => '65x65') %></td>
+                <td><%= user.name %></td>
+                <td><%= user.email %></td>
+                <td><%= link_to "詳細へ",admin_user_path(user.id) %></td>
+            </tr>
+          <% end %>
+        
+        
+      </table>
+
+    <% end %>
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+

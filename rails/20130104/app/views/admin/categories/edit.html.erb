@@ -1,0 +1,39 @@
+
+<div data-role="content">
+
+  <h1><%= Category.find(@category.parent_id).name %>:<%= @category.name %>の編集</h1>
+
+  <%= form_for [:admin,@category],:html => {"data-ajax" => "false" } do |form| %>
+
+    <table> 
+
+      <tr>
+        <th><%= form.label :parent_id ,"親カテゴリー"%></th>
+        <td><%= form.select :parent_id,@parent_categories %></td>
+      </tr>
+
+      <tr>
+        <th><%= form.label :name ,"子カテゴリー"%></th>
+        <td><%= form.text_field :name %></td>
+      </tr>
+      
+      <tr>
+        <td><%= form.submit "編集" %></td>
+      </tr>
+
+    </table>
+
+
+  <% end %>
+
+
+
+
+
+</div>
+
+
+
+
+
+

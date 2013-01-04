@@ -1,0 +1,72 @@
+
+<div data-role="header" data-position="fixed" data-theme="b"
+    style="
+	width:800px;
+    margin-left : auto ; margin-right : auto;"
+    >
+
+  <div data-role="navbar">
+  
+  
+    <ul>
+      <li><%= link_to "検索",:root %></li>
+      <li><%= link_to "メッセージ",box_messages_path %></li>
+      <li><%= link_to "プロフィール",profile_user_path(@current_user.id) %></li>
+    </ul>
+  </div>
+  
+  <h1>タグ検索結果一覧</h1>
+
+</div>
+
+
+<div data-role="content"
+    style="background:none repeat-x scroll 0 0 #e6e6fa;
+	width:770px;
+	height:800px;
+	margin-left : auto ; margin-right : auto;"
+ >
+  <p><span style="color: red"><%= @experts.size%></span>件ヒット</p>
+
+  <ul data-role="listview">
+
+    <% @experts.each do |expert| %>
+     
+        <li class="expert_list"
+          style="background: #e6e6fa">
+
+        <%= image_tag(expert.image,
+            :size => '65x65',
+            :class=>'user_image') %>
+
+        <%= link_to expert.name + "さん "+" 2000円／5メッセージ",expert_path(expert.id) %>
+        <% @categorynames = expert.categories.map{|m| m.name} %>
+
+        <% @i=1 %>
+        <% @categorynames.each do |name| %>
+
+        <% if( @i<=5) %>
+        <span class="expert_tag">
+        <%= @i %>
+        <%= name %>
+        </span>
+        <% end %>
+        <% @i+=1 %>
+   <% end %>
+
+      </li>
+    <% end %>
+  </ul>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+

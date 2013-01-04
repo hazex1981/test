@@ -1,0 +1,56 @@
+
+
+<div data-role="content">
+
+  <p><%= link_to "管理画面TOP",admin_root_path %></p>
+  
+  <div>
+    <a href="/admin/categories/new" data-role="button" data-inline="true">カテゴリー新規作成</a>
+    <a href="/admin/categories/deleted" data-role="button" data-inline="true">削除項目一覧</a>
+  </div>
+
+
+    <ul data-role="listview">
+    
+      <% @parents.each do |parent| %>
+
+        <!-- 親カテゴリーを表示 -->
+        <li>
+          <span style="color: blue"><strong><%= parent.name =%></strong></span>
+          全 <%= parent.children.size %>項目
+        </li>
+
+        
+        <!-- 子カテゴリーを表示　-->
+        <ul>
+          <% parent.children.each do |child| %>
+
+            <li>
+              <%= link_to child.name,admin_category_path(child.id) %>
+            </li>
+      
+          <% end %>
+        </ul>
+
+      <% end %>
+    
+    </ul>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

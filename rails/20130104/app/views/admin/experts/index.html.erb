@@ -1,0 +1,84 @@
+
+<div data-role="content">
+
+  <p><%= link_to "管理画面TOP",admin_root_path %></p>
+  
+  <h1>エキスパート一覧</h1>
+    
+  <div>
+    <a href="/admin/experts/new" data-role="button" data-inline="true">エキスパート新規登録</a>
+  </div>
+
+  <p>全<%= @experts.size %>人</p>
+
+    <!--ユーザーがいない場合。 -->
+    <% if @experts.empty? %>
+    
+      <p>エキスパートは一人も登録されていません</p>
+
+
+    <!-- ユーザーがいた場合 -->
+    <% else %>
+    
+      <table class="table">
+        
+          <tr>
+            
+            <th>プロフィール画像</th>
+            <th>名前</th>
+            <th>メールアドレス</th>
+            <th></th>
+
+          </tr>
+
+          <% @experts.each do |expert| %>
+            <tr>
+                <td><%= image_tag(expert.image,:size => '65x65') %></td>
+                <td><%= expert.name %></td>
+                <td><%= expert.email %></td>
+                <td><%= link_to "詳細へ",admin_expert_path(expert.id) %></td>
+            </tr>
+          <% end %>
+        
+        
+      </table>
+
+    <% end %>
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

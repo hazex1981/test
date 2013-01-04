@@ -1,0 +1,46 @@
+// Place all the styles related to the admin/users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+table.table{
+   border-top:1px solid #663300;
+   border-left:1px solid #663300;
+   border-collapse:collapse;
+   border-spacing:0;
+   background-color:#ffffff;
+   empty-cells:show;
+}
+
+
+.table th{
+   border-right:1px solid #663300;
+   border-bottom:1px solid #663300;
+   color:#330000;
+   background-color:#996633;
+   background-image:url(../img/table-back.gif);
+   background-position:left top;
+   padding:0.3em 1em;
+   text-align:center;
+}
+
+.table td{
+   border-right:1px solid #663300;
+   border-bottom:1px solid #663300;
+   padding:0.3em 1em;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

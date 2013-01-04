@@ -1,0 +1,44 @@
+
+<div data-role="content">
+
+  <h1>
+    削除項目 <br />
+    <%= Category.find(@deleted_category.parent_id).name %>:<%= @deleted_category.name %>
+  </h1> 
+
+  <!-- 削除項目を復元させるもの -->
+  <p><%= link_to "削除項目の復元",recover_admin_category_path(@deleted_category.id),method: "post" %></p>
+
+  <p>このカテゴリーを専門に持つエキスパート一覧</p>
+
+  <% if @experts.empty? %>
+
+    <p>該当者ない</p>
+
+  <% else %>
+
+    <p>全<%= @experts.size %>件</p>
+
+    <ol data-role="listview">
+      <% @experts.each do |expert| %>
+   
+        <li>
+          <a href="/admin/experts/<%= expert.id %>">
+            <%= image_tag(expert.image,:size => '65x65') %>
+            <%= expert.name %>さん
+          </a>
+        </li>
+    
+      <% end %>
+    </ol>
+
+  <% end %>
+
+
+</div>
+
+
+
+
+
+
